@@ -3,7 +3,7 @@ import businessDays from '../src';
 
 dayjs.extend(businessDays);
 
-xit('Should only be a business day Monday to Friday', () => {
+it('Should only be a business day Monday to Friday', () => {
   expect(dayjs().startOf('week').isBusinessDay()).toBe(false);
   expect(dayjs().endOf('week').isBusinessDay()).toBe(false);
   expect(dayjs('2020-04-01T00:00:00.000').isBusinessDay()).toBe(true);
@@ -11,7 +11,7 @@ xit('Should only be a business day Monday to Friday', () => {
   expect(dayjs('2019-12-28T00:00:00.000').isBusinessDay()).toBe(false);
 });
 
-xit('Should skip non-business days when adding to a date', () => {
+it('Should skip non-business days when adding to a date', () => {
   expect(dayjs('2019-12-20T00:00:00.000').businessDaysAdd(1).valueOf()).toBe(dayjs('2019-12-23T00:00:00.000').valueOf());
   expect(dayjs('2019-12-16T00:00:00.000').businessDaysAdd(5).valueOf()).toBe(dayjs('2019-12-23T00:00:00.000').valueOf());
   expect(dayjs('2019-12-20T00:00:00.000').businessDaysAdd(7).valueOf()).toBe(dayjs('2019-12-31T00:00:00.000').valueOf());
@@ -42,17 +42,17 @@ xit('Should calculate the number of business days when performing a diff', () =>
   expect(dayjs('2019-12-01').businessDiff(dayjs('2019-12-25'))).toBe(-17);
 });
 
-xit('Should find the next Business Day', () => {
+it('Should find the next Business Day', () => {
   expect(dayjs('2020-04-01').nextBusinessDay().valueOf()).toBe(dayjs('2020-04-02').valueOf());
   expect(dayjs('2020-04-10').nextBusinessDay().valueOf()).toBe(dayjs('2020-04-13').valueOf());
 });
 
-xit('Should find the previous Business Day', () => {
+it('Should find the previous Business Day', () => {
   expect(dayjs('2020-04-02').prevBusinessDay().valueOf()).toBe(dayjs('2020-04-01').valueOf());
   expect(dayjs('2020-04-13').prevBusinessDay().valueOf()).toBe(dayjs('2020-04-10').valueOf());
 });
 
-xit('Should return an array of businessDays in a given month', () => {
+it('Should return an array of businessDays in a given month', () => {
   expect(dayjs(null).businessDaysInMonth()).toEqual([]);
   expect(dayjs('2020-04-01').businessDaysInMonth().length).toBe(22);
   expect(dayjs('2019-12-15').businessDaysInMonth().length).toBe(22);
@@ -60,7 +60,7 @@ xit('Should return an array of businessDays in a given month', () => {
   expect(dayjs('2020-04-01').businessDaysInMonth()[21].valueOf()).toBe(dayjs('2020-04-30').valueOf());
 });
 
-xit('Should return a two dimensional array of businessWeeks in a given month', () => {
+it('Should return a two dimensional array of businessWeeks in a given month', () => {
   expect(dayjs(null).businessWeeksInMonth()).toEqual([]);
   expect(dayjs('2020-04-01').businessWeeksInMonth().length).toBe(5);
   expect(dayjs('2020-04-01').businessWeeksInMonth()[0].length).toBe(3);
@@ -80,7 +80,7 @@ xit('Should return a two dimensional array of businessWeeks in a given month', (
   expect(dayjs('2019-12-15').businessWeeksInMonth()[1][4].valueOf()).toBe(dayjs('2019-12-13').valueOf());
 });
 
-xit('Should not be a business day on holidays', () => {
+it('Should not be a business day on holidays', () => {
   const july4th = '2020-07-04';
   const laborDay = '2020-09-07';
 
