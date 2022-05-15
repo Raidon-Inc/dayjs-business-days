@@ -15,22 +15,6 @@ export default (option = {}, dayjsClass) => {
     return false;
   };
 
-  // dayjsClass.prototype.businessDaysAdd = function (number) {
-  //   let currentDay = this.clone();
-  //   let daysRemaining = number;
-  //   while (daysRemaining != 0) {
-  //     if (daysRemaining >= 1) {
-  //       currentDay = currentDay.add(1, 'd');
-  //       if (currentDay.isBusinessDay()) daysRemaining -= 1;
-  //     } else if (daysRemaining < 1) {
-  //       currentDay = currentDay.add(daysRemaining, 'd');
-  //       if (currentDay.isBusinessDay()) daysRemaining -= daysRemaining;
-  //     }
-  //   }
-
-  //   return currentDay;
-  // };
-
   dayjsClass.prototype.businessDaysAdd = function (number) {
     let currentDay = this.clone();
     let daysRemaining = number;
