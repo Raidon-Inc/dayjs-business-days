@@ -15,17 +15,107 @@ export default (option = {}, dayjsClass) => {
     return false;
   };
 
+  // dayjsClass.prototype.businessDaysAdd = function (number) {
+  //   let currentDay = this.clone();
+  //   let daysRemaining = number;
+  //   while (daysRemaining != 0) {
+  //     if (daysRemaining >= 1) {
+  //       currentDay = currentDay.add(1, 'd');
+  //       if (currentDay.isBusinessDay()) daysRemaining -= 1;
+  //     } else if (daysRemaining < 1) {
+  //       currentDay = currentDay.add(daysRemaining, 'd');
+  //       if (currentDay.isBusinessDay()) daysRemaining -= daysRemaining;
+  //     }
+  //   }
+
+  //   return currentDay;
+  // };
+
   dayjsClass.prototype.businessDaysAdd = function (number) {
-    const numericDirection = number < 0 ? -1 : 1;
     let currentDay = this.clone();
-    let daysRemaining = Math.abs(number);
-
-    while (daysRemaining > 0) {
-      currentDay = currentDay.add(numericDirection, 'd');
-
-      if (currentDay.isBusinessDay()) daysRemaining -= 1;
+    let daysRemaining = number;
+    while (daysRemaining != 0) {
+      if (daysRemaining >= 1) {
+        currentDay = currentDay.add(1, 'd');
+        if (currentDay.isBusinessDay()) daysRemaining -= 1;
+      } else if (daysRemaining < 1) {
+        const hr = 1 / 24;
+        const min = hr / 60;
+        const s = min / 60;
+        const ms = s / 1000;
+        if (daysRemaining >= hr) {
+          const numHours = Math.floor(daysRemaining / hr);
+          const tempDay = currentDay.add(numHours, 'h');
+          if (tempDay.isBusinessDay()) {
+            currentDay = tempDay;
+            daysRemaining -= numHours * hr;
+          } else {
+            currentDay = currentDay.add(1, 'd');
+          }
+        } else if (daysRemaining >= min) {
+          const numMinutes = Math.floor(daysRemaining / min);
+          const tempDay = currentDay.add(numMinutes, 'm');
+          if (tempDay.isBusinessDay()) {
+            currentDay = tempDay;
+            daysRemaining -= numMinutes * min;
+          } else {
+            currentDay = currentDay.add(1, 'd');
+          }
+        } else if (daysRemaining >= s) {
+          const numSeconds = Math.floor(daysRemaining / s);
+          const tempDay = currentDay.add(numSeconds, 's');
+          if (tempDay.isBusinessDay()) {
+            currentDay = tempDay;
+            daysRemaining -= numSeconds * s;
+          } else {
+            currentDay = currentDay.add(1, 'd');
+          }
+        } else if (daysRemaining >= ms) {
+          const numMs = Math.floor(daysRemaining / ms);
+          const tempDay = currentDay.add(numMs, 'ms');
+          if (tempDay.isBusinessDay()) {
+            currentDay = tempDay;
+            daysRemaining -= numMs * ms;
+          } else {
+            currentDay = currentDay.add(1, 'd');
+          }
+        }
+      }
     }
+    return currentDay;
+  };
 
+  dayjsClass.prototype.addDay = function (number) {
+    let currentDay = this.clone();
+    let daysRemaining = number;
+    while (daysRemaining != 0) {
+      if (daysRemaining >= 1) {
+        currentDay = currentDay.add(1, 'd');
+        daysRemaining -= 1;
+      } else if (daysRemaining < 1) {
+        const hr = 1 / 24;
+        const min = hr / 60;
+        const s = min / 60;
+        const ms = s / 1000;
+        if (daysRemaining >= hr) {
+          const numHours = Math.floor(daysRemaining / hr);
+          currentDay = currentDay.add(numHours, 'h');
+          daysRemaining -= numHours * hr;
+        } else if (daysRemaining >= min) {
+          const numMinutes = Math.floor(daysRemaining / min);
+          currentDay = currentDay.add(numMinutes, 'm');
+          daysRemaining -= numMinutes * min;
+        } else if (daysRemaining >= s) {
+          const numSeconds = Math.floor(daysRemaining / s);
+          currentDay = currentDay.add(numSeconds, 's');
+          daysRemaining -= numSeconds * s;
+        } else if (daysRemaining >= ms) {
+          const numMs = Math.floor(daysRemaining / ms);
+          currentDay = currentDay.add(numMs, 'ms');
+          daysRemaining -= numMs * ms;
+        }
+      }
+    }
     return currentDay;
   };
 
@@ -50,9 +140,19 @@ export default (option = {}, dayjsClass) => {
     if (start.isSame(end)) return daysBetween;
 
     while (start < end) {
-      if (start.isBusinessDay()) daysBetween += 1;
-
-      start = start.add(1, 'd');
+      if (start.add(1, 'd') < end) {
+        if (start.isBusinessDay()) daysBetween += 1;
+        start = start.add(1, 'd');
+      } else if (start.add(1, 'h') < end) {
+        if (start.isBusinessDay()) daysBetween += 1 / 24;
+        start = start.add(1, 'h');
+      } else if (start.add(1, 'm') < end) {
+        if (start.isBusinessDay()) daysBetween += 1 / 24 / 60;
+        start = start.add(1, 'm');
+      } else if (start.add(1, 's') < end) {
+        if (start.isBusinessDay()) daysBetween += 1 / 24 / 60 / 60;
+        start = start.add(1, 's');
+      }
     }
 
     return isPositiveDiff ? daysBetween : -daysBetween;
