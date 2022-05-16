@@ -16,17 +16,19 @@ export default (option = {}, dayjsClass) => {
   };
 
   dayjsClass.prototype.businessDaysAdd = function (number) {
+    const numericDirection = number < 0 ? -1 : 1;
     let currentDay = this.clone();
-    let daysRemaining = number;
+    let daysRemaining = Math.abs(number);
+    const day = numericDirection === 1 ? 1 : -1;
+    const hr = day / 24;
+    const min = hr / 60;
+    const s = min / 60;
+    const ms = s / 1000;
     while (daysRemaining != 0) {
       if (daysRemaining >= 1) {
         currentDay = currentDay.add(1, 'd');
         if (currentDay.isBusinessDay()) daysRemaining -= 1;
       } else if (daysRemaining < 1) {
-        const hr = 1 / 24;
-        const min = hr / 60;
-        const s = min / 60;
-        const ms = s / 1000;
         if (daysRemaining >= hr) {
           const numHours = Math.floor(daysRemaining / hr);
           const tempDay = currentDay.add(numHours, 'h');
@@ -34,7 +36,7 @@ export default (option = {}, dayjsClass) => {
             currentDay = tempDay;
             daysRemaining -= numHours * hr;
           } else {
-            currentDay = currentDay.add(1, 'd');
+            currentDay = currentDay.add(day, 'd');
           }
         } else if (daysRemaining >= min) {
           const numMinutes = Math.floor(daysRemaining / min);
@@ -43,7 +45,7 @@ export default (option = {}, dayjsClass) => {
             currentDay = tempDay;
             daysRemaining -= numMinutes * min;
           } else {
-            currentDay = currentDay.add(1, 'd');
+            currentDay = currentDay.add(day, 'd');
           }
         } else if (daysRemaining >= s) {
           const numSeconds = Math.floor(daysRemaining / s);
@@ -52,7 +54,7 @@ export default (option = {}, dayjsClass) => {
             currentDay = tempDay;
             daysRemaining -= numSeconds * s;
           } else {
-            currentDay = currentDay.add(1, 'd');
+            currentDay = currentDay.add(day, 'd');
           }
         } else if (daysRemaining >= ms) {
           const numMs = Math.floor(daysRemaining / ms);
@@ -61,7 +63,7 @@ export default (option = {}, dayjsClass) => {
             currentDay = tempDay;
             daysRemaining -= numMs * ms;
           } else {
-            currentDay = currentDay.add(1, 'd');
+            currentDay = currentDay.add(day, 'd');
           }
         }
       }
@@ -70,17 +72,19 @@ export default (option = {}, dayjsClass) => {
   };
 
   dayjsClass.prototype.addDay = function (number) {
+    const numericDirection = number < 0 ? -1 : 1;
     let currentDay = this.clone();
     let daysRemaining = number;
+    const day = numericDirection === 1 ? 1 : -1;
+    const hr = day / 24;
+    const min = hr / 60;
+    const s = min / 60;
+    const ms = s / 1000;
     while (daysRemaining != 0) {
       if (daysRemaining >= 1) {
-        currentDay = currentDay.add(1, 'd');
+        currentDay = currentDay.add(day, 'd');
         daysRemaining -= 1;
       } else if (daysRemaining < 1) {
-        const hr = 1 / 24;
-        const min = hr / 60;
-        const s = min / 60;
-        const ms = s / 1000;
         if (daysRemaining >= hr) {
           const numHours = Math.floor(daysRemaining / hr);
           currentDay = currentDay.add(numHours, 'h');
