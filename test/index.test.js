@@ -18,8 +18,19 @@ it('Should skip non-business days when adding to a date', () => {
   expect(dayjs('2019-12-02T00:00:00.000').businessDaysAdd(21).valueOf()).toBe(dayjs('2019-12-31T00:00:00.000').valueOf());
 });
 
+it('Should skip non-business days when adding to a date', () => {
+  expect(dayjs('2022-05-13T00:00:00.000').businessDaysAdd(1.5).format('YYYY-MM-DD HH:mm:ss.SSS')).toBe(
+    dayjs('2022-05-16T12:00:00.000').format('YYYY-MM-DD HH:mm:ss.SSS'),
+  );
+  expect(dayjs('2019-12-16T00:00:00.000').businessDaysAdd(5.5).valueOf()).toBe(dayjs('2019-12-23T12:00:00.000').valueOf());
+  expect(dayjs('2019-12-20T00:00:00.000').businessDaysAdd(7.5).valueOf()).toBe(dayjs('2019-12-31T12:00:00.000').valueOf());
+  expect(dayjs('2019-12-02T00:00:00.000').businessDaysAdd(21.5).valueOf()).toBe(dayjs('2019-12-31T12:00:00.000').valueOf());
+});
+
 it('Should skip non-business days when subtracting from a date', () => {
-  expect(dayjs('2019-12-23T00:00:00.000').businessDaysSubtract(1).valueOf()).toBe(dayjs('2019-12-20T00:00:00.000').valueOf());
+  expect(dayjs('2019-12-23T00:00:00.000').businessDaysSubtract(1).format('YYYY-MM-DD HH:mm:ss.SSS')).toBe(
+    dayjs('2019-12-20T00:00:00.000').format('YYYY-MM-DD HH:mm:ss.SSS'),
+  );
   expect(dayjs('2019-12-23T00:00:00.000').businessDaysSubtract(5).valueOf()).toBe(dayjs('2019-12-16T00:00:00.000').valueOf());
   expect(dayjs('2019-12-31T00:00:00.000').businessDaysSubtract(7).valueOf()).toBe(dayjs('2019-12-20T00:00:00.000').valueOf());
   expect(dayjs('2019-12-31T00:00:00.000').businessDaysSubtract(21).valueOf()).toBe(dayjs('2019-12-02T00:00:00.000').valueOf());
@@ -31,6 +42,10 @@ it('Should calculate the number of business days when performing a diff', () => 
   expect(dayjs('2020-03-25').businessDiff(dayjs('2020-04-01'))).toBe(-5);
   expect(dayjs('2019-12-25').businessDiff(dayjs('2019-12-01'))).toBe(17);
   expect(dayjs('2019-12-01').businessDiff(dayjs('2019-12-25'))).toBe(-17);
+  expect(dayjs('2022-05-17T12:00:00.000').businessDiff(dayjs('2022-05-16T00:00:00.000'))).toBe(1.5);
+  expect(dayjs('2022-05-16T12:00:00.000').businessDiff(dayjs('2022-05-13T12:00:00.000'))).toBe(1);
+  expect(dayjs('2022-05-16T00:00:00.000').businessDiff(dayjs('2022-05-13T12:00:00.000'))).toBe(0.5);
+  expect(dayjs('2022-05-16T12:00:00.000').businessDiff(dayjs('2022-05-13T0:00:00.000'))).toBe(1.5);
 });
 
 it('Should find the next Business Day', () => {
