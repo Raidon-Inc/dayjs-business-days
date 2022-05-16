@@ -31,18 +31,18 @@ it('Should skip non-business days when subtracting from a date', () => {
   expect(dayjs('2019-12-23T00:00:00.000').businessDaysSubtract(1).format('YYYY-MM-DD HH:mm:ss.SSS')).toBe(
     dayjs('2019-12-20T00:00:00.000').format('YYYY-MM-DD HH:mm:ss.SSS'),
   );
-  // expect(dayjs('2019-12-23T00:00:00.000').businessDaysSubtract(5).valueOf()).toBe(dayjs('2019-12-16T00:00:00.000').valueOf());
-  // expect(dayjs('2019-12-31T00:00:00.000').businessDaysSubtract(7).valueOf()).toBe(dayjs('2019-12-20T00:00:00.000').valueOf());
-  // expect(dayjs('2019-12-31T00:00:00.000').businessDaysSubtract(21).valueOf()).toBe(dayjs('2019-12-02T00:00:00.000').valueOf());
+  expect(dayjs('2019-12-23T00:00:00.000').businessDaysSubtract(5).valueOf()).toBe(dayjs('2019-12-16T00:00:00.000').valueOf());
+  expect(dayjs('2019-12-31T00:00:00.000').businessDaysSubtract(7).valueOf()).toBe(dayjs('2019-12-20T00:00:00.000').valueOf());
+  expect(dayjs('2019-12-31T00:00:00.000').businessDaysSubtract(21).valueOf()).toBe(dayjs('2019-12-02T00:00:00.000').valueOf());
 });
 
-// xit('Should calculate the number of business days when performing a diff', () => {
-//   expect(dayjs('2019-12-01').businessDiff(dayjs('2019-12-01'))).toBe(0);
-//   expect(dayjs('2020-04-01').businessDiff(dayjs('2020-03-25'))).toBe(5);
-//   expect(dayjs('2020-03-25').businessDiff(dayjs('2020-04-01'))).toBe(-5);
-//   expect(dayjs('2019-12-25').businessDiff(dayjs('2019-12-01'))).toBe(17);
-//   expect(dayjs('2019-12-01').businessDiff(dayjs('2019-12-25'))).toBe(-17);
-// });
+it('Should calculate the number of business days when performing a diff', () => {
+  expect(dayjs('2019-12-01').businessDiff(dayjs('2019-12-01'))).toBe(0);
+  expect(dayjs('2020-04-01').businessDiff(dayjs('2020-03-25'))).toBe(5);
+  expect(dayjs('2020-03-25').businessDiff(dayjs('2020-04-01'))).toBe(-5);
+  expect(dayjs('2019-12-25').businessDiff(dayjs('2019-12-01'))).toBe(17);
+  expect(dayjs('2019-12-01').businessDiff(dayjs('2019-12-25'))).toBe(-17);
+});
 
 it('Should find the next Business Day', () => {
   expect(dayjs('2020-04-01').nextBusinessDay().valueOf()).toBe(dayjs('2020-04-02').valueOf());
