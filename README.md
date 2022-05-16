@@ -35,14 +35,10 @@ Day.js version 1.8.x installed
 
 ### Installing
 
-You can install via Yarn or npm
+You can install via npm
 
 ```bash
-yarn add dayjs-business-days
-```
-
-```bash
-npm install dayjs-business-days
+npm install r-dayjs-business-days
 ```
 
 ## Usage Guide
@@ -51,7 +47,7 @@ You will need to import the plugin and activate it via the Day.js `.extend()` fu
 
 ```javascript
 import dayjs from 'dayjs';
-import dayjsBusinessDays from 'dayjs-business-days';
+import dayjsBusinessDays from 'r-dayjs-business-days';
 
 dayjs.extend(dayjsBusinessDays);
 ```
@@ -162,7 +158,7 @@ We are more than happy to accept PRs for bugs, improvements or new features.
 Developing your own changes locally is easy, you just need to clone the repo
 
 ```bash
-git clone git@github.com/soar-tech/dayjs-business-days
+git clone git@github.com/Raidon-Inc/dayjs-business-days
 
 cd dayjs-business-days
 ```

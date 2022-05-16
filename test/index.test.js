@@ -42,6 +42,10 @@ it('Should calculate the number of business days when performing a diff', () => 
   expect(dayjs('2020-03-25').businessDiff(dayjs('2020-04-01'))).toBe(-5);
   expect(dayjs('2019-12-25').businessDiff(dayjs('2019-12-01'))).toBe(17);
   expect(dayjs('2019-12-01').businessDiff(dayjs('2019-12-25'))).toBe(-17);
+  expect(dayjs('2022-05-17T12:00:00.000').businessDiff(dayjs('2022-05-16T00:00:00.000'))).toBe(1.5);
+  expect(dayjs('2022-05-16T12:00:00.000').businessDiff(dayjs('2022-05-13T12:00:00.000'))).toBe(1);
+  expect(dayjs('2022-05-16T00:00:00.000').businessDiff(dayjs('2022-05-13T12:00:00.000'))).toBe(0.5);
+  expect(dayjs('2022-05-16T12:00:00.000').businessDiff(dayjs('2022-05-13T0:00:00.000'))).toBe(1.5);
 });
 
 it('Should find the next Business Day', () => {

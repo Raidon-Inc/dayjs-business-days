@@ -127,44 +127,15 @@ export default (option = {}, dayjsClass) => {
 
     if (start.isSame(end)) return daysBetween;
 
-    const day = 1;
-    const hr = day / 24;
-    const min = hr / 60;
-    const s = min / 60;
-    const ms = s / 1000;
-
     while (start < end) {
-      if (start.add(day, 'd') < end) {
-        if (start.isBusinessDay()) {
-          daysBetween += day;
-        }
-        console.log(start.format('YYYY-MM-DD HH:mm:ss.SSS'), end.format('YYYY-MM-DD HH:mm:ss.SSS'));
-        start = start.add(day, 'd');
-        console.log(start < end);
-        console.log(start.format('YYYY-MM-DD HH:mm:ss.SSS'), end.format('YYYY-MM-DD HH:mm:ss.SSS'));
-      }
-      // else if (start.add(1, 'h') < end) {
-      //   if (start.isBusinessDay()) daysBetween += hr;
-      //   start = start.add(1, 'h');
-      //   console.log(start.format('YYYY-MM-DD HH:mm:ss.SSS'), end.format('YYYY-MM-DD HH:mm:ss.SSS'));
-      //   continue;
-      // } else if (start.add(1, 'm') < end) {
-      //   if (start.isBusinessDay()) daysBetween += min;
-      //   start = start.add(1, 'm');
-      //   console.log(start.format('YYYY-MM-DD HH:mm:ss.SSS'), end.format('YYYY-MM-DD HH:mm:ss.SSS'));
-      //   continue;
-      // } else if (start.add(1, 's') < end) {
-      //   if (start.isBusinessDay()) daysBetween += s;
-      //   start = start.add(1, 's');
-      //   console.log(start.format('YYYY-MM-DD HH:mm:ss.SSS'), end.format('YYYY-MM-DD HH:mm:ss.SSS'));
-      //   continue;
-      // } else if (start.add(1, 'ms') < end) {
-      //   if (start.isBusinessDay()) daysBetween += ms;
-      //   start = start.add(1, 'ms');
-      //   console.log(start.format('YYYY-MM-DD HH:mm:ss.SSS'), end.format('YYYY-MM-DD HH:mm:ss.SSS'));
-      // }
+      if (start.isBusinessDay()) daysBetween += 1;
+
+      start = start.add(1, 'd');
     }
-    console.log({ daysBetween });
+
+    const difference = end.diff(start, 'd', true);
+    daysBetween += difference;
+
     return isPositiveDiff ? daysBetween : -daysBetween;
   };
 
