@@ -1,8 +1,13 @@
 {
   "name": "r-dayjs-business-days",
-  "version": "0.0.0",
+  "version": "0.0.9",
   "description": "Day.js plugin to add support for calculating dates based on business days",
   "main": "index.min.js",
+  "typings": "index.d.ts",
+  "files": [
+    "index.min.js",
+    "index.d.ts"
+  ],
   "module": "index.min.js",
   "scripts": {
     "test": "jest --coverage",
