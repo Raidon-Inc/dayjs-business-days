@@ -1,4 +1,4 @@
-# dayjs-business-days
+# r-dayjs-business-days
 
 This is a plugin for Day.js that allows for Date calculations to take place that only consider Business Days i.e Monday to Friday
 
@@ -50,6 +50,13 @@ import dayjs from 'dayjs';
 import dayjsBusinessDays from 'r-dayjs-business-days';
 
 dayjs.extend(dayjsBusinessDays);
+```
+
+```typescript
+import dayjs, { PluginFunc } from 'dayjs';
+import * as dayjsBusinessDays from 'r-dayjs-business-days';
+
+dayjs.extend(dayjsBusinessDays as PluginFunc);
 ```
 
 ### isBusinessDay() => Boolean
