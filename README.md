@@ -3,11 +3,11 @@
 This is a plugin for Day.js that allows for Date calculations to take place that only consider Business Days i.e Monday to Friday
 
 - Calculate if date is a Business Day
-- Add/Subtract Business Days
+- Add/Subtract Business Days (and fractional days ex: .5 day)
 - Calculate difference between dates in Business Days
 - Get Next/Prev Business Day
 - Get all Business Days/Weeks in a Month
-- Based off of [moment-business-days](https://www.npmjs.com/package/moment-business-days)
+- Based off of [moment-business-days](https://www.npmjs.com/package/moment-business-days) and [dayjs-business-days](https://www.npmjs.com/package/dayjs-business-days)
 
 ## Current CI/CD Status
 
@@ -50,13 +50,6 @@ import dayjs from 'dayjs';
 import dayjsBusinessDays from 'r-dayjs-business-days';
 
 dayjs.extend(dayjsBusinessDays);
-```
-
-```typescript
-import dayjs, { PluginFunc } from 'dayjs';
-import * as dayjsBusinessDays from 'r-dayjs-business-days';
-
-dayjs.extend(dayjsBusinessDays as PluginFunc);
 ```
 
 ### isBusinessDay() => Boolean
